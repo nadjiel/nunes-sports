@@ -10,3 +10,6 @@ services:
 
 volumes:
   postgres-vol:
+
+# docker exec -it nunes-sports-postgres-1 psql -U postgres
+# CREATE DATABASE nunes_sports
