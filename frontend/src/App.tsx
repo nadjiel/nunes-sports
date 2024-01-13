@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { api } from "./api";
 
 import './App.css';
+import { CreateProduct } from "./pages/CreateProduct";
 
 interface Product {
   id: string,
@@ -14,6 +15,7 @@ interface Product {
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [createProductModalVisible, setCreateProductModalVisible] = useState(false);
 
   async function fetchProducts() {
     const res = await api.get("product");
@@ -25,9 +27,13 @@ function App() {
     fetchProducts();
   }, []);
 
+  function toggleCreateProductModal() {
+    createProductModalVisible ? setCreateProductModalVisible(false) : setCreateProductModalVisible(true);
+  }
+
   return (
     <main className="App">
-      <button>Adicionar Produto</button>
+      <button onClick={toggleCreateProductModal}>Adicionar Produto</button>
       {
         products.length ?
         products.map(product => (
@@ -40,6 +46,7 @@ function App() {
         )) :
         <p>Nenhum produto registrado</p>
       }
+      <CreateProduct visible={createProductModalVisible}/>
     </main>
   );
 }
