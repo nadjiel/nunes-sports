@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, ReactNode, useEffect } from "react";
 
 import { api } from "./api";
 
 import './App.css';
 import { CreateProduct } from "./pages/CreateProduct";
+import { EditProduct } from "./pages/EditProduct";
 
 interface Product {
   id: string,
@@ -15,6 +16,7 @@ interface Product {
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [modal, setModal] = useState<ReactNode>();
   const [createProductModalVisible, setCreateProductModalVisible] = useState(false);
 
   async function fetchProducts() {
@@ -31,6 +33,14 @@ function App() {
     createProductModalVisible ? setCreateProductModalVisible(false) : setCreateProductModalVisible(true);
   }
 
+  function editProduct(id: string) {
+    setModal(<EditProduct id={id} visible={true} />);
+  }
+
+  function deleteProduct(id: string) {
+
+  }
+
   return (
     <main className="App">
       <button onClick={toggleCreateProductModal}>Adicionar Produto</button>
@@ -38,15 +48,21 @@ function App() {
         products.length ?
         products.map(product => (
           <li key={product.id}>
-            <span>{product.code}</span>
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <span>{product.price}</span>
+            <div>
+              <span>{product.code}</span>
+              <h3>{product.name}</h3>
+              <span>{product.price}</span>
+              <p>{product.description}</p>
+            </div>
+            <div>
+              <button onClick={() => editProduct(product.id)}>Editar</button>
+              <button onClick={() => deleteProduct(product.id)}>Deletar</button>
+            </div>
           </li>
         )) :
         <p>Nenhum produto registrado</p>
       }
-      <CreateProduct visible={createProductModalVisible}/>
+      {modal}
     </main>
   );
 }

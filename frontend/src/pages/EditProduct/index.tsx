@@ -11,10 +11,11 @@ import { Modal, Input } from "../../components";
 import "./style.css";
 
 interface Props {
-  visible: boolean
+  visible: boolean,
+  id: string
 }
 
-export function CreateProduct({ visible }: Props) {
+export function EditProduct({ visible, id }: Props) {
   const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
     resolver: zodResolver(schema)
   });
@@ -28,7 +29,7 @@ export function CreateProduct({ visible }: Props) {
     price
   }: FormData) => {
     try {
-      await api.post("product", {
+      await api.put(`product/${id}`, {
         code,
         name,
         description,
@@ -45,7 +46,7 @@ export function CreateProduct({ visible }: Props) {
   return (
     <Modal visible={visible}>
       <form onSubmit={handleSubmit(submit)}>
-        <h2>Criar Produto</h2>
+        <h2>Editar Produto</h2>
 
         <Input<FormData>
           label="Código do produto:"
@@ -83,7 +84,7 @@ export function CreateProduct({ visible }: Props) {
 
         <span>{warning}</span>
 
-        <button>Salvar</button>
+        <button>Editar</button>
       </form>
     </Modal>
   )
