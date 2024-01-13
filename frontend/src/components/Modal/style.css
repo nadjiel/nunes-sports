@@ -4,7 +4,7 @@
 
   position: fixed;
   top: 50vh;
-  right: 50vw;
+  left: 50vw;
   transform: translate(-50%, -50%);
   transition: 500ms ease-in-out;
 }
