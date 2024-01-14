@@ -101,12 +101,6 @@ async function update(req: Request, res: Response) {
       .json({ error: `Couldn't find product with id ${id}` });
   }
 
-  if(code && await productModel.findOne({ where: { code } })) {
-    return res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ error: `Code is already registered` });
-  }
-
   const result = await productModel.update({
     code, name, description, price
   }, { where: { id }, returning: true });
