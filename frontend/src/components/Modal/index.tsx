@@ -22,8 +22,8 @@ export function Modal({ children, title, confirm, cancel, confirmButton, cancelB
         <h2 className="title">{title}</h2>
         {children}
         <div className="btn-row">
-          { confirmButton || <button className="btn confirm" onClick={confirm}>Confirmar</button> }
-          { cancelButton || <button className="btn cancel" onClick={cancel}>Cancelar</button> }
+          { confirmButton || <button className="btn" onClick={confirm}>Confirmar</button> }
+          { cancelButton || <button className="btn danger" onClick={cancel}>Cancelar</button> }
         </div>
       </div>
     </div>

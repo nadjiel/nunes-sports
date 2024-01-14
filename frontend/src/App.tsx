@@ -45,22 +45,25 @@ function App() {
 
   return (
     <main className="App">
-      <button onClick={openCreationModal}>Adicionar Produto</button>
+      <div className="header">
+        <h1 className="main-title">Nunes Sports</h1>
+        <button className="btn" onClick={openCreationModal}>Adicionar Produto</button>
+      </div>
       {
         products.length ?
-        <ul>
+        <ul className="list">
           {
             products.map(product => (
-              <li key={product.id}>
+              <li className="list-item" key={product.id}>
                 <div>
                   <span>{product.code}</span>
                   <h3>{product.name}</h3>
                   <span>{product.price}</span>
                   <p>{product.description}</p>
                 </div>
-                <div>
-                  <button onClick={() => openEditionModal(product)}>Editar</button>
-                  <button onClick={() => openDeletionModal(product)}>Deletar</button>
+                <div className="btn-col">
+                  <button className="btn" onClick={() => openEditionModal(product)}>Editar</button>
+                  <button className="btn danger" onClick={() => openDeletionModal(product)}>Deletar</button>
                 </div>
               </li>
             ))
