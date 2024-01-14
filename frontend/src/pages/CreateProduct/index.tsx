@@ -43,8 +43,20 @@ export function CreateProduct({ cancel }: Props) {
   }
 
   return (
-    <Modal title="Criar Produto" cancel={cancel}>
-      <form onSubmit={handleSubmit(submit)}>
+    <Modal
+      title="Criar Produto"
+      cancel={cancel}
+      confirmButton={
+        <button
+          className="btn confirm"
+          form="create-product-form"
+          type="submit"
+        >
+          Criar Produto
+        </button>
+      }
+    >
+      <form id="create-product-form" onSubmit={handleSubmit(submit)}>
         <Input<FormData>
           label="Código do produto:"
           name="code"

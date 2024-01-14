@@ -31,12 +31,12 @@ function App() {
     setModal(<CreateProduct cancel={closeModal} />);
   }
 
-  function openEditionModal(id: string) {
-    setModal(<EditProduct id={id} cancel={closeModal} />);
+  function openEditionModal(product: Product) {
+    setModal(<EditProduct product={product} cancel={closeModal} />);
   }
 
-  function openDeletionModal(id: string, name: string) {
-    setModal(<DeleteProduct id={id} name={name} cancel={closeModal} />);
+  function openDeletionModal(product: Product) {
+    setModal(<DeleteProduct product={product} cancel={closeModal} />);
   }
 
   useEffect(() => {
@@ -59,8 +59,8 @@ function App() {
                   <p>{product.description}</p>
                 </div>
                 <div>
-                  <button onClick={() => openEditionModal(product.id)}>Editar</button>
-                  <button onClick={() => openDeletionModal(product.id, product.name)}>Deletar</button>
+                  <button onClick={() => openEditionModal(product)}>Editar</button>
+                  <button onClick={() => openDeletionModal(product)}>Deletar</button>
                 </div>
               </li>
             ))

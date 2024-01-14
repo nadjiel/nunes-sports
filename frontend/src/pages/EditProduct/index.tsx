@@ -10,13 +10,27 @@ import { Modal, Input } from "../../components";
 
 import "./style.css";
 
-interface Props {
+interface Product {
   id: string,
+  code: string,
+  name: string,
+  description: string,
+  price: number
+}
+
+interface Props {
+  product: any,
   cancel: () => void
 }
 
-export function EditProduct({ id, cancel }: Props) {
+export function EditProduct({ product, cancel }: Props) {
   const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
+    defaultValues: {
+      code: product.code,
+      name: product.name,
+      description: product.description,
+      price: product.price
+    },
     resolver: zodResolver(schema)
   });
 
@@ -29,7 +43,7 @@ export function EditProduct({ id, cancel }: Props) {
     price
   }: FormData) => {
     try {
-      await api.put(`product/${id}`, {
+      await api.put(`product/${product.id}`, {
         code,
         name,
         description,
@@ -44,8 +58,20 @@ export function EditProduct({ id, cancel }: Props) {
   }
 
   return (
-    <Modal title="Editar Produto" cancel={cancel}>
-      <form onSubmit={handleSubmit(submit)}>
+    <Modal
+      title="Editar Produto"
+      cancel={cancel}
+      confirmButton={
+        <button
+          className="btn confirm"
+          form="edit-product-form"
+          type="submit"
+        >
+          Editar Produto
+        </button>
+      }
+    >
+      <form id="edit-product-form" onSubmit={handleSubmit(submit)}>
         <Input<FormData>
           label="Código do produto:"
           name="code"

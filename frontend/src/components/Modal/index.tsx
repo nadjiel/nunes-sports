@@ -6,10 +6,12 @@ interface Props {
   children: ReactNode,
   title: string,
   confirm?: () => void,
-  cancel?: () => void
+  cancel?: () => void,
+  confirmButton?: ReactNode,
+  cancelButton?: ReactNode
 }
 
-export function Modal({ children, title, confirm, cancel }: Props) {
+export function Modal({ children, title, confirm, cancel, confirmButton, cancelButton }: Props) {
   const modal = useRef<HTMLDivElement>(null);
 
   return (
@@ -20,8 +22,8 @@ export function Modal({ children, title, confirm, cancel }: Props) {
         <h2 className="title">{title}</h2>
         {children}
         <div className="btn-row">
-          <button className="btn confirm" onClick={confirm}>Confirmar</button>
-          <button className="btn cancel" onClick={cancel}>Cancelar</button>
+          { confirmButton || <button className="btn confirm" onClick={confirm}>Confirmar</button> }
+          { cancelButton || <button className="btn cancel" onClick={cancel}>Cancelar</button> }
         </div>
       </div>
     </div>
