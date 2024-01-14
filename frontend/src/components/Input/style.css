@@ -1,0 +1,23 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  min-width: 300px;
+}
+
+.input-label {
+  display: block;
+}
+
+.input {
+  flex-grow: 1;
+  padding: .5rem 1rem;
+  border: 1px solid #32a1bd;
+  border-radius: .5rem;
+  box-shadow: 0 .1rem .5rem .25rem rgba(0, 0, 0, .1);
+}
+
+.input-warning {
+  font-size: .8rem;
+  color: rgb(199, 59, 16);
+}

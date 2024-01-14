@@ -22,16 +22,17 @@ export function Input<FormData extends FieldValues>({
   error
 }: Props<FormData>) {
   return (
-    <div>
-      { label && <label htmlFor={name}>{label}</label> }
+    <div className="input-container">
+      { label && <label className="input-label" htmlFor={name}>{label}</label> }
       <input
+        className="input"
         id={name}
         type={type}
         step={step}
         placeholder={placeholder}
         {...register(name)}
       />
-      { error && <span>{error.message}</span> }
+      { error && <span className="input-warning">{error.message}</span> }
     </div>
   );
 }
