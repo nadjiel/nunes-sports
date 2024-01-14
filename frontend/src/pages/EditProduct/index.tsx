@@ -11,11 +11,11 @@ import { Modal, Input } from "../../components";
 import "./style.css";
 
 interface Props {
-  visible: boolean,
-  id: string
+  id: string,
+  cancel: () => void
 }
 
-export function EditProduct({ visible, id }: Props) {
+export function EditProduct({ id, cancel }: Props) {
   const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
     resolver: zodResolver(schema)
   });
@@ -44,10 +44,8 @@ export function EditProduct({ visible, id }: Props) {
   }
 
   return (
-    <Modal visible={visible}>
+    <Modal title="Editar Produto" cancel={cancel}>
       <form onSubmit={handleSubmit(submit)}>
-        <h2>Editar Produto</h2>
-
         <Input<FormData>
           label="Código do produto:"
           name="code"
@@ -83,8 +81,6 @@ export function EditProduct({ visible, id }: Props) {
         />
 
         <span>{warning}</span>
-
-        <button>Editar</button>
       </form>
     </Modal>
   )

@@ -1,10 +1,9 @@
-import { useState, ReactNode, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { api } from "./api";
 
 import './App.css';
-import { CreateProduct } from "./pages/CreateProduct";
-import { EditProduct } from "./pages/EditProduct";
+import { CreateProduct, EditProduct, DeleteProduct } from "./pages";
 
 interface Product {
   id: string,
@@ -16,8 +15,7 @@ interface Product {
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [modal, setModal] = useState<ReactNode>();
-  const [createProductModalVisible, setCreateProductModalVisible] = useState(false);
+  const [modal, setModal] = useState<JSX.Element | null>(null);
 
   async function fetchProducts() {
     const res = await api.get("product");
@@ -25,44 +23,52 @@ function App() {
     setProducts(res.data);
   }
 
+  function closeModal() {
+    setModal(null);
+  }
+
+  function openCreationModal() {
+    setModal(<CreateProduct cancel={closeModal} />);
+  }
+
+  function openEditionModal(id: string) {
+    setModal(<EditProduct id={id} cancel={closeModal} />);
+  }
+
+  function openDeletionModal(id: string, name: string) {
+    setModal(<DeleteProduct id={id} name={name} cancel={closeModal} />);
+  }
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  function toggleCreateProductModal() {
-    createProductModalVisible ? setCreateProductModalVisible(false) : setCreateProductModalVisible(true);
-  }
-
-  function editProduct(id: string) {
-    setModal(<EditProduct id={id} visible={true} />);
-  }
-
-  function deleteProduct(id: string) {
-
-  }
-
   return (
     <main className="App">
-      <button onClick={toggleCreateProductModal}>Adicionar Produto</button>
+      <button onClick={openCreationModal}>Adicionar Produto</button>
       {
         products.length ?
-        products.map(product => (
-          <li key={product.id}>
-            <div>
-              <span>{product.code}</span>
-              <h3>{product.name}</h3>
-              <span>{product.price}</span>
-              <p>{product.description}</p>
-            </div>
-            <div>
-              <button onClick={() => editProduct(product.id)}>Editar</button>
-              <button onClick={() => deleteProduct(product.id)}>Deletar</button>
-            </div>
-          </li>
-        )) :
+        <ul>
+          {
+            products.map(product => (
+              <li key={product.id}>
+                <div>
+                  <span>{product.code}</span>
+                  <h3>{product.name}</h3>
+                  <span>{product.price}</span>
+                  <p>{product.description}</p>
+                </div>
+                <div>
+                  <button onClick={() => openEditionModal(product.id)}>Editar</button>
+                  <button onClick={() => openDeletionModal(product.id, product.name)}>Deletar</button>
+                </div>
+              </li>
+            ))
+          }
+        </ul> :
         <p>Nenhum produto registrado</p>
       }
-      {modal}
+      { modal }
     </main>
   );
 }

@@ -1,15 +1,58 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5rem 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.hidden {
+  display: none;
+}
+
 .modal {
   padding: 1rem;
-  background-color: #555;
+  border-radius: 1rem;
+  background-color: #fff;
 
   position: fixed;
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);
-  transition: 500ms ease-in-out;
 }
 
-.hidden {
-  top: 100vh;
-  transform: translate(-50%, 0%);
+.title {
+  font-size: 1.5rem;
+  margin-block: 1rem;
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: .5rem 1rem;
+  border: 0;
+  border-radius: .25rem;
+  cursor: pointer;
+  transition: 100ms;
+}
+
+.btn:hover {
+  filter: brightness(125%);
+}
+
+.confirm {
+  background-color: rgb(53, 165, 81);
+}
+
+.cancel {
+  background-color: rgb(199, 59, 16);
 }

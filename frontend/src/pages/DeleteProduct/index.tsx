@@ -5,12 +5,12 @@ import { Modal } from "../../components";
 import "./style.css";
 
 interface Props {
-  visible: boolean,
   id: string,
-  name: string
+  name: string,
+  cancel: () => void
 }
 
-export function DeleteProduct({ visible, id, name }: Props) {
+export function DeleteProduct({ id, name, cancel }: Props) {
   const submit = async () => {
     try {
       await api.delete(`product/${id}`);
@@ -20,12 +20,9 @@ export function DeleteProduct({ visible, id, name }: Props) {
   }
 
   return (
-    <Modal visible={visible}>
+    <Modal title="Deletar Produto" cancel={cancel}>
       <form onSubmit={submit}>
-        <h2>Deletar Produto</h2>
         <p>Tem certeza que quer deletar o produto {name}?</p>
-
-        <button>Deletar</button>
       </form>
     </Modal>
   )
