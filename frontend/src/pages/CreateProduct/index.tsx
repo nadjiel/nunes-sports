@@ -34,6 +34,8 @@ export function CreateProduct({ cancel }: Props) {
         description,
         price
       });
+
+      window.location.reload();
     } catch(err) {
       console.log(err)
       if(!(err instanceof AxiosError)) return;

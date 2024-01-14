@@ -1,3 +1,4 @@
+import { FormEventHandler } from "react";
 import { api } from "../../api";
 
 import { Modal } from "../../components";
@@ -18,16 +19,19 @@ interface Props {
 }
 
 export function DeleteProduct({ product, cancel }: Props) {
-  const submit = async () => {
+  const submit: FormEventHandler<HTMLFormElement> = async e  => {
+    e.preventDefault();
+
     try {
       await api.delete(`product/${product.id}`);
+
+      window.location.reload();
     } catch(err) {
       console.log(err)
     }
   }
 
   return (
-    
     <Modal
       title="Deletar Produto"
       cancel={cancel}
